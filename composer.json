@@ -1,0 +1,20 @@
+{
+    "name": "scandipwa/sales-graphql",
+    "description": "Magneto 2 Sales related functionality extension",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0"
+    ],
+    "require": {
+        "magento/framework": "*",
+        "magento/module-sales-graph-ql": "^100.3"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "ScandiPWA\\SalesGraphQl\\": ""
+        }
+    }
+}

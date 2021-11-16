@@ -1,0 +1,47 @@
+/**
+ * ScandiPWA - Progressive Web App for Magento
+ *
+ * Copyright © Scandiweb, Inc. All rights reserved.
+ * See LICENSE for license details.
+ *
+ * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
+ */
+
+input CustomerOrdersFilterInput @doc(description: "Identifies the filter to use for filtering orders.") {
+    entity_id: FilterStringTypeInput @doc(description: "Filters by order entity id.")
+}
+
+type CustomerOrder @doc(description: "Contains details about each of the customer's orders") {
+    can_reorder: Boolean! @doc(description: "Defines if order can be reordered")
+    rss_link: String @doc(description: "Represents rss link to subscribe on order status")
+}
+
+interface OrderItemInterface {
+   row_subtotal: Money! @doc(description: "The row subtotal price, including selected options")
+}
+
+interface CreditMemoItemInterface {
+   row_subtotal: Money! @doc(description: "The row subtotal price, including selected options")
+}
+
+interface InvoiceItemInterface {
+   row_subtotal: Money! @doc(description: "The row subtotal price, including selected options")
+}
+
+type OrderItemOption {
+    label: String! @doc(description: "The name of the option")
+    value: String @doc(description: "The value of the option")
+    items: [BundleOption]
+    linkItems: [String]
+}
+
+type BundleOptions @doc(description: "Represents order bundle item options") {
+    type: String! @doc(description: "Describes type of bundle option (radio, checkbox and etc)")
+    items: [BundleOption]
+}
+
+type BundleOption {
+    title: String
+    qty: Int
+    price: Float
+}

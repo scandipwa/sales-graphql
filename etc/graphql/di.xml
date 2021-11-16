@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ScandiPWA - Progressive Web App for Magento
+ *
+ * Copyright © Scandiweb, Inc. All rights reserved.
+ * See LICENSE for license details.
+ *
+ * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference
+        for="Magento\SalesGraphQl\Model\OrderItem\DataProvider"
+        type="ScandiPWA\SalesGraphQl\Model\OrderItem\DataProvider"/>
+    <preference
+        for="Magento\SalesGraphQl\Model\Resolver\CreditMemo\CreditMemoItems"
+        type="ScandiPWA\SalesGraphQl\Model\Resolver\CreditMemo\CreditMemoItems"/>
+    <preference
+        for="Magento\SalesGraphQl\Model\Resolver\Invoice\InvoiceItems"
+        type="ScandiPWA\SalesGraphQl\Model\Resolver\Invoice\InvoiceItems"/>
+</config>
