@@ -43,7 +43,7 @@ class Order extends SourceOrder
     /**
      * @var Signature
      */
-    private $signature;
+    protected $signature;
 
     /**
      * @var ScopeConfigInterface
