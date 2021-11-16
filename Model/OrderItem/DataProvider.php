@@ -133,11 +133,6 @@ class DataProvider extends SourceDataProvider
         $orderList = $this->fetchOrders($orderItems);
 
         foreach ($orderItems as $orderItem) {
-
-            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-            $logger = $objectManager->create('\Psr\Log\LoggerInterface');
-            $logger->info("items", (array)$orderItem->getRowTotal());
-
             /** @var ProductInterface $associatedProduct */
             $associatedProduct = $productList[$orderItem->getProductId()] ?? null;
             /** @var OrderInterface $associatedOrder */
