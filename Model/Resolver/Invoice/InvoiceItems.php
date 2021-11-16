@@ -119,9 +119,6 @@ class InvoiceItems extends SourceInvoiceItems
     {
         $orderItem = $this->orderItemProvider->getOrderItemById((int)$invoiceItem->getOrderItemId());
 
-        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $logger = $objectManager->create('\Psr\Log\LoggerInterface');
-        $logger->info("item", (array)$invoiceItem->getRowTotal());
         return [
             'id' => base64_encode($invoiceItem->getEntityId()),
             'product_name' => $invoiceItem->getName(),
