@@ -120,12 +120,9 @@ class CustomerOrders extends CoreCustomerOrders
             $ordersArray[] = $this->orderFormatter->format($orderModel);
         }
 
-        // Need to reverse order array so that new orders will be first, then old
-        $reversedOrdersArray = array_reverse($ordersArray);
-
         return [
             'total_count' => $searchResult->getTotalCount(),
-            'items' =>  $reversedOrdersArray,
+            'items' =>  $ordersArray,
             'page_info' => [
                 'page_size' => $searchResult->getPageSize(),
                 'current_page' => $searchResult->getCurPage(),
