@@ -107,6 +107,7 @@ class DataProvider extends SourceDataProvider
     public function getOrderItemById(int $orderItemId): array
     {
         $orderItems = $this->fetch();
+
         if (!isset($orderItems[$orderItemId])) {
             return [];
         }
