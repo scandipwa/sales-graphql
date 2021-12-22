@@ -45,3 +45,11 @@ type BundleOption {
     qty: Int
     price: Float
 }
+
+type OrderPaymentMethod {
+    purchase_number: String @doc(description: "Defines order purchase number")
+}
+
+type OrderAddress {
+    country_id: CountryCodeEnum @doc(description: "The customer's country")
+}
