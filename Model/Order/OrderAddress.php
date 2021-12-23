@@ -26,9 +26,11 @@ class OrderAddress extends CoreOrderAddress
         OrderInterface $order
     ): ?array {
         $shippingAddress = null;
+
         if ($order->getShippingAddress()) {
             $shippingAddress = $this->formatAddressData($order->getShippingAddress());
         }
+
         return $shippingAddress;
     }
 
@@ -42,9 +44,11 @@ class OrderAddress extends CoreOrderAddress
         OrderInterface $order
     ): ?array {
         $billingAddress = null;
+
         if ($order->getBillingAddress()) {
             $billingAddress = $this->formatAddressData($order->getBillingAddress());
         }
+
         return $billingAddress;
     }
 
@@ -54,7 +58,7 @@ class OrderAddress extends CoreOrderAddress
      * @param OrderAddressInterface $orderAddress
      * @return array
      */
-    private function formatAddressData(
+    public function formatAddressData(
         OrderAddressInterface $orderAddress
     ): array {
         // Changed country_code to country_id
