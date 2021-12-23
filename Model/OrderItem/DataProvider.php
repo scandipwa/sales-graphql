@@ -107,9 +107,11 @@ class DataProvider extends SourceDataProvider
     public function getOrderItemById(int $orderItemId): array
     {
         $orderItems = $this->fetch();
+
         if (!isset($orderItems[$orderItemId])) {
             return [];
         }
+
         return $orderItems[$orderItemId];
     }
 
@@ -190,9 +192,11 @@ class DataProvider extends SourceDataProvider
             ->create();
         $products = $this->productRepository->getList($searchCriteria)->getItems();
         $productList = [];
+
         foreach ($products as $product) {
             $productList[$product->getId()] = $product;
         }
+
         return $productList;
     }
 
@@ -217,9 +221,11 @@ class DataProvider extends SourceDataProvider
         $orders = $this->orderRepository->getList($searchCriteria)->getItems();
 
         $orderList = [];
+
         foreach ($orders as $order) {
             $orderList[$order->getEntityId()] = $order;
         }
+
         return $orderList;
     }
 
@@ -232,7 +238,9 @@ class DataProvider extends SourceDataProvider
      */
     protected function getDiscountDetails(OrderInterface $associatedOrder, OrderItemInterface $orderItem) : array
     {
-        if ($associatedOrder->getDiscountDescription() === null && $orderItem->getDiscountAmount() == 0
+        if (
+            $associatedOrder->getDiscountDescription() === null
+            && $orderItem->getDiscountAmount() == 0
             && $associatedOrder->getDiscountAmount() == 0
         ) {
             $discounts = [];
@@ -245,6 +253,7 @@ class DataProvider extends SourceDataProvider
                 ]
             ];
         }
+
         return $discounts;
     }
 }

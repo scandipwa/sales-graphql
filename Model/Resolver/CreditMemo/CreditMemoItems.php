@@ -83,6 +83,7 @@ class CreditMemoItems extends SourceCreditMemoItems
     protected function getCreditMemoItems(OrderInterface $order, array $creditMemoItems): \Closure
     {
         $orderItems = [];
+
         foreach ($creditMemoItems as $item) {
             $this->orderItemProvider->addOrderItemId((int)$item->getOrderItemId());
         }
@@ -92,13 +93,16 @@ class CreditMemoItems extends SourceCreditMemoItems
                 $orderItem = $this->orderItemProvider->getOrderItemById((int)$creditMemoItem->getOrderItemId());
                 /** @var OrderItemInterface $orderItemModel */
                 $orderItemModel = $orderItem['model'];
+
                 if (!$orderItemModel->getParentItem()) {
                     $creditMemoItemData = $this->getCreditMemoItemData($order, $creditMemoItem);
+
                     if (!empty($creditMemoItemData)) {
                         $orderItems[$creditMemoItem->getOrderItemId()] = $creditMemoItemData;
                     }
                 }
             }
+
             return $orderItems;
         };
     }
@@ -113,6 +117,7 @@ class CreditMemoItems extends SourceCreditMemoItems
     protected function getCreditMemoItemData(OrderInterface $order, CreditmemoItemInterface $creditMemoItem): array
     {
         $orderItem = $this->orderItemProvider->getOrderItemById((int)$creditMemoItem->getOrderItemId());
+
         return [
             'id' => base64_encode($creditMemoItem->getEntityId()),
             'product_name' => $creditMemoItem->getName(),
@@ -157,6 +162,7 @@ class CreditMemoItems extends SourceCreditMemoItems
                 ]
             ];
         }
+
         return $discounts;
     }
 }

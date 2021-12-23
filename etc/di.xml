@@ -25,6 +25,12 @@
         for="Magento\SalesGraphQl\Model\Formatter\Order"
         type="ScandiPWA\SalesGraphQl\Model\Formatter\Order"/>
     <preference
+        for="Magento\SalesGraphQl\Model\Order\OrderAddress"
+        type="ScandiPWA\SalesGraphQl\Model\Order\OrderAddress"/>
+    <preference
+        for="Magento\SalesGraphQl\Model\Order\OrderPayments"
+        type="ScandiPWA\SalesGraphQl\Model\Order\OrderPayments"/>
+    <preference
         for="Magento\SalesGraphQl\Model\Resolver\CustomerOrders"
         type="ScandiPWA\SalesGraphQl\Model\Resolver\CustomerOrders"/>
 </config>
