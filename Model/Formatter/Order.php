@@ -171,7 +171,7 @@ class Order extends SourceOrder
      * @param OrderInterface $orderModel
      * @return array
      */
-    protected function getOrderComments(OrderInterface $orderModel): array
+    public function getOrderComments(OrderInterface $orderModel): array
     {
         $comments = [];
 
