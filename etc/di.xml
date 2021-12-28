@@ -15,6 +15,7 @@
         <arguments>
             <argument name="ignoredURLs" xsi:type="array">
                 <item name="orderSubscriptionToStatus" xsi:type="string">^/rss/feed/index/type/order_status/.*</item>
+                <item name="downloadCustomOption" xsi:type="string">^/sales/download/downloadCustomOption/id/.*</item>
             </argument>
         </arguments>
     </virtualType>
