@@ -89,21 +89,26 @@ class InvoiceItems extends SourceInvoiceItems
     public function getInvoiceItems(OrderInterface $order, array $invoiceItems): \Closure
     {
         $itemsList = [];
+
         foreach ($invoiceItems as $Item) {
             $this->orderItemProvider->addOrderItemId((int)$Item->getOrderItemId());
         }
+
         return function () use ($order, $invoiceItems, $itemsList): array {
             foreach ($invoiceItems as $invoiceItem) {
                 $orderItem = $this->orderItemProvider->getOrderItemById((int)$invoiceItem->getOrderItemId());
                 /** @var OrderItemInterface $orderItemModel */
                 $orderItemModel = $orderItem['model'];
+
                 if (!$orderItemModel->getParentItem()) {
                     $invoiceItemData = $this->getInvoiceItemData($order, $invoiceItem);
+
                     if (!empty($invoiceItemData)) {
                         $itemsList[$invoiceItem->getOrderItemId()] = $invoiceItemData;
                     }
                 }
             }
+
             return $itemsList;
         };
     }
@@ -162,6 +167,7 @@ class InvoiceItems extends SourceInvoiceItems
                 ]
             ];
         }
+
         return $discounts;
     }
 }

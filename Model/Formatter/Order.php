@@ -26,6 +26,11 @@ use Magento\Store\Model\ScopeInterface;
 class Order extends SourceOrder
 {
     /**
+     * Xml pah to order rss enabled status
+     */
+    const XML_PATH_ORDER_RSS_ENABLED_STATUS = 'rss/order/status';
+
+    /**
      * @var OrderAddress
      */
     protected $orderAddress;
@@ -125,6 +130,7 @@ class Order extends SourceOrder
             'increment_id' => $order->getIncrementId(),
             'customer_id' => $order->getCustomerId(),
         ];
+
         return base64_encode(json_encode($data));
     }
 
@@ -153,7 +159,7 @@ class Order extends SourceOrder
     public function isRssAllowed()
     {
         return $this->scopeConfig->isSetFlag(
-            'rss/order/status',
+            self::XML_PATH_ORDER_RSS_ENABLED_STATUS,
             ScopeInterface::SCOPE_STORE
         );
     }
