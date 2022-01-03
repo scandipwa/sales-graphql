@@ -20,4 +20,7 @@
     <preference
         for="Magento\SalesGraphQl\Model\Resolver\Invoice\InvoiceItems"
         type="ScandiPWA\SalesGraphQl\Model\Resolver\Invoice\InvoiceItems"/>
+    <preference
+        for="Magento\SalesGraphQl\Model\Resolver\CustomerOrders\Query\OrderFilter"
+        type="ScandiPWA\SalesGraphQl\Model\Resolver\CustomerOrders\Query\OrderFilter"/>
 </config>
