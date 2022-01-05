@@ -48,6 +48,7 @@ class Invoices extends SourceInvoices
                 'order' => $orderModel
             ];
         }
+
         return $invoices;
     }
 
