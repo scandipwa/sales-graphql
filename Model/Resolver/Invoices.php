@@ -54,14 +54,14 @@ class Invoices extends SourceInvoices
     /**
      * Get comments invoice in proper format
      *
-     * @param InvoiceInterface $shipment
+     * @param InvoiceInterface $invoice
      * @return array
      */
-    public function getInvoiceComments(InvoiceInterface $shipment): array
+    public function getInvoiceComments(InvoiceInterface $invoice): array
     {
         $comments = [];
 
-        foreach ($shipment->getComments() as $comment) {
+        foreach ($invoice->getComments() as $comment) {
             if ($comment->getIsVisibleOnFront()) {
                 $comments[] = [
                     'timestamp' => $comment->getCreatedAt(),
