@@ -34,4 +34,7 @@
     <preference
         for="Magento\SalesGraphQl\Model\Resolver\CustomerOrders"
         type="ScandiPWA\SalesGraphQl\Model\Resolver\CustomerOrders"/>
+    <preference
+        for="Magento\SalesGraphQl\Model\Resolver\Invoices"
+        type="ScandiPWA\SalesGraphQl\Model\Resolver\Invoices"/>
 </config>

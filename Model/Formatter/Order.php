@@ -102,6 +102,7 @@ class Order extends SourceOrder
             'rss_link' => $this->getRssLink($orderModel),
             'can_reorder' => $orderModel->canReorder(),
             'model' => $orderModel,
+            'comments' => $this->getOrderComments($orderModel)
         ];
     }
 
@@ -164,4 +165,25 @@ class Order extends SourceOrder
         );
     }
 
+    /**
+     * Get order comments in proper format
+     *
+     * @param OrderInterface $orderModel
+     * @return array
+     */
+    public function getOrderComments(OrderInterface $orderModel): array
+    {
+        $comments = [];
+
+        foreach ($orderModel->getStatusHistoryCollection() as $comment) {
+            if ($comment->getIsVisibleOnFront()) {
+                $comments[] = [
+                    'timestamp' => $comment->getCreatedAt(),
+                    'message' => $comment->getComment()
+                ];
+            }
+        }
+
+        return $comments;
+    }
 }
