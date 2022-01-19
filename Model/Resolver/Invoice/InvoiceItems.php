@@ -136,7 +136,7 @@ class InvoiceItems extends SourceInvoiceItems
             'model' => $invoiceItem,
             'product_type' => $orderItem['product_type'],
             'order_item' => $orderItem,
-            'discounts' => $this->formatDiscountDetails($order, $invoiceItem),//
+            'discounts' => $this->formatDiscountDetails($order, $invoiceItem),
             'row_subtotal' => [
                 'value' => $invoiceItem->getRowTotal(),
                 'currency' => $order->getOrderCurrencyCode()
