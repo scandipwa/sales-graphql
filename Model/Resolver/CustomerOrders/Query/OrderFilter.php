@@ -96,16 +96,10 @@ class OrderFilter extends CoreOrderFilter
         );
         $filterGroups[] = $this->filterGroupBuilder->create();
 
-        $this->filterGroupBuilder->setFilters(
-            [$this->filterBuilder->setField('store_id')->setValue($storeId)->setConditionType('eq')->create()]
-        );
-        $filterGroups[] = $this->filterGroupBuilder->create();
-
         // Next lines are added to filter order status by visible on front statuses
         $this->filterGroupBuilder->setFilters(
             [$this->filterBuilder->setField('status')->setValue($this->orderConfig->getVisibleOnFrontStatuses())->setConditionType('in')->create()]
         );
-
         $filterGroups[] = $this->filterGroupBuilder->create();
 
         if (isset($args['filter'])) {
