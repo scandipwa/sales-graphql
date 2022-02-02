@@ -160,7 +160,7 @@ class InvoiceItems extends SourceInvoiceItems
             $discounts = [];
         } else {
             $discounts[] = [
-                'label' => $associatedOrder->getDiscountDescription() ?? __('Discount'),
+                'label' => $associatedOrder->getDiscountDescription(),
                 'amount' => [
                     'value' => abs($invoiceItem->getDiscountAmount()) ?? 0,
                     'currency' => $associatedOrder->getOrderCurrencyCode()
