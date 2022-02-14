@@ -37,4 +37,10 @@
     <preference
         for="Magento\SalesGraphQl\Model\Resolver\Invoices"
         type="ScandiPWA\SalesGraphQl\Model\Resolver\Invoices"/>
+    <preference
+        for="Magento\SalesGraphQl\Model\Resolver\Shipments"
+        type="ScandiPWA\SalesGraphQl\Model\Resolver\Shipments"/>
+    <preference
+        for="ScandiPWA\SalesGraphQl\Api\OrderViewAuthorizationInterface"
+        type="ScandiPWA\SalesGraphQl\Model\OrderViewAuthorization" />
 </config>
