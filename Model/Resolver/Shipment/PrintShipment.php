@@ -2,6 +2,7 @@
 
 namespace ScandiPWA\SalesGraphQl\Model\Resolver\Shipment;
 
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
@@ -18,18 +19,23 @@ class PrintShipment implements ResolverInterface
     /**
      * @var ShipmentRepositoryInterface
      */
-    protected $shipmentRepository;
+    protected ShipmentRepositoryInterface $shipmentRepository;
 
     /**
      * @var OrderFormatter
      */
-    protected $orderFormatter;
+    protected OrderFormatter $orderFormatter;
 
     /**
      * @var OrderViewAuthorizationInterface
      */
-    protected $orderViewAuthorizationInterface;
+    protected OrderViewAuthorizationInterface $orderViewAuthorizationInterface;
 
+    /**
+     * @param ShipmentRepositoryInterface $shipmentRepository
+     * @param OrderFormatter $orderFormatter
+     * @param OrderViewAuthorizationInterface $orderViewAuthorizationInterface
+     */
     public function __construct(
         ShipmentRepositoryInterface $shipmentRepository,
         OrderFormatter $orderFormatter,
@@ -51,8 +57,13 @@ class PrintShipment implements ResolverInterface
         array $args = null
     ) {
         $customerId = $context->getUserId();
-        $shipment = $this->shipmentRepository->get($args['shipmentId']);
-        $order = $shipment->getOrder();
+
+        try {
+            $shipment = $this->shipmentRepository->get($args['shipmentId']);
+            $order = $shipment->getOrder();
+        } catch (NoSuchEntityException $e) {
+            throw new GraphQlInputException(__($e->getMessage()));
+        }
 
         if (!$this->orderViewAuthorizationInterface->canView($order, $customerId)) {
             throw new GraphQlInputException(__('Current user is not allowed to print this order'));
