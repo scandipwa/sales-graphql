@@ -2,6 +2,7 @@
 
 namespace ScandiPWA\SalesGraphQl\Model\Resolver\CreditMemo;
 
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
@@ -18,18 +19,23 @@ class PrintCreditMemo implements ResolverInterface
     /**
      * @var CreditmemoRepositoryInterface
      */
-    protected $creditmemoRepository;
+    protected CreditmemoRepositoryInterface $creditmemoRepository;
 
     /**
      * @var OrderFormatter
      */
-    protected $orderFormatter;
+    protected OrderFormatter $orderFormatter;
 
     /**
      * @var OrderViewAuthorizationInterface
      */
-    protected $orderViewAuthorizationInterface;
+    protected OrderViewAuthorizationInterface $orderViewAuthorizationInterface;
 
+    /**
+     * @param CreditmemoRepositoryInterface $creditmemoRepository
+     * @param OrderFormatter $orderFormatter
+     * @param OrderViewAuthorizationInterface $orderViewAuthorizationInterface
+     */
     public function __construct(
         CreditmemoRepositoryInterface $creditmemoRepository,
         OrderFormatter $orderFormatter,
@@ -51,8 +57,13 @@ class PrintCreditMemo implements ResolverInterface
         array $args = null
     ) {
         $customerId = $context->getUserId();
-        $refund = $this->creditmemoRepository->get($args['refundId']);
-        $order = $refund->getOrder();
+
+        try {
+            $refund = $this->creditmemoRepository->get($args['refundId']);
+            $order = $refund->getOrder();
+        } catch (NoSuchEntityException $e) {
+            throw new GraphQlInputException(__($e->getMessage()));
+        }
 
         if (!$this->orderViewAuthorizationInterface->canView($order, $customerId)) {
             throw new GraphQlInputException(__('Current user is not allowed to print this order'));

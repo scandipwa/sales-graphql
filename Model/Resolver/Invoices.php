@@ -9,7 +9,6 @@ namespace ScandiPWA\SalesGraphQl\Model\Resolver;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\GraphQl\Config\Element\Field;
-use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\Data\InvoiceInterface;
@@ -41,7 +40,7 @@ class Invoices extends SourceInvoices
         /** @var InvoiceInterface $invoice */
         foreach ($orderModel->getInvoiceCollection() as $invoice) {
             $invoices[] = [
-                'id' => base64_encode($invoice->getEntityId()),
+                'id' => base64_encode((string) $invoice->getEntityId()),
                 'number' => $invoice['increment_id'],
                 'comments' => $this->getInvoiceComments($invoice),
                 'model' => $invoice,

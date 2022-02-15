@@ -8,9 +8,9 @@
  */
 
 type Query {
-    orderByInvoice (invoiceId: Int): CustomerOrder @resolver(class: "ScandiPWA\\SalesGraphQl\\Model\\Resolver\\Invoice\\PrintInvoice")
-    orderByShipment (shipmentId: Int): CustomerOrder @resolver(class: "ScandiPWA\\SalesGraphQl\\Model\\Resolver\\Shipment\\PrintShipment")
-    orderByRefund (refundId: Int): CustomerOrder @resolver(class: "ScandiPWA\\SalesGraphQl\\Model\\Resolver\\CreditMemo\\PrintCreditMemo")
+    orderByInvoice (invoiceId: Int!): CustomerOrder @resolver(class: "ScandiPWA\\SalesGraphQl\\Model\\Resolver\\Invoice\\PrintInvoice")
+    orderByShipment (shipmentId: Int!): CustomerOrder @resolver(class: "ScandiPWA\\SalesGraphQl\\Model\\Resolver\\Shipment\\PrintShipment")
+    orderByRefund (refundId: Int!): CustomerOrder @resolver(class: "ScandiPWA\\SalesGraphQl\\Model\\Resolver\\CreditMemo\\PrintCreditMemo")
 }
 
 input CustomerOrdersFilterInput @doc(description: "Identifies the filter to use for filtering orders.") {
