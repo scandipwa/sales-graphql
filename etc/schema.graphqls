@@ -59,3 +59,8 @@ type OrderPaymentMethod {
 type OrderAddress {
     country_id: CountryCodeEnum @doc(description: "The customer's country")
 }
+
+type Discount @doc(description:"Defines an individual discount. A discount can be applied to the cart as a whole or to an item.") {
+    amount: Money! @doc(description:"The amount of the discount")
+    label: String @doc(description:"A description of the discount")
+}
