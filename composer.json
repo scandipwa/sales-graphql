@@ -16,6 +16,5 @@
         "psr-4": {
             "ScandiPWA\\SalesGraphQl\\": ""
         }
-    },
-    "version": "1.0.10"
+    }
 }

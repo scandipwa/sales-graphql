@@ -1,7 +1,13 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * ScandiPWA - Progressive Web App for Magento
+ *
+ * Copyright © Scandiweb, Inc. All rights reserved.
+ * See LICENSE for license details.
+ *
+ * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
+ * @package scandipwa/module-customer-graph-ql
+ * @link https://github.com/scandipwa/module-customer-graph-ql
  */
 declare(strict_types=1);
 
@@ -13,7 +19,6 @@ use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\SalesGraphQl\Model\Resolver\OrderTotal as SourceOrderTotal;
-
 
 /**
  * Resolve order totals taxes and discounts for order
@@ -73,11 +78,12 @@ class OrderTotal extends SourceOrderTotal
      * @param OrderInterface $order
      * @return array
      */
-    private function getAllAppliedTaxesOnOrders(OrderInterface $order): array
+    public function getAllAppliedTaxesOnOrders(OrderInterface $order): array
     {
         $extensionAttributes = $order->getExtensionAttributes();
         $appliedTaxes = $extensionAttributes->getAppliedTaxes() ?? [];
         $allAppliedTaxOnOrders = [];
+
         foreach ($appliedTaxes as $taxIndex => $appliedTaxesData) {
             $allAppliedTaxOnOrders[$taxIndex] = [
                 'title' => $appliedTaxesData->getDataByKey('title'),
@@ -85,6 +91,7 @@ class OrderTotal extends SourceOrderTotal
                 'amount' => $appliedTaxesData->getDataByKey('amount'),
             ];
         }
+
         return $allAppliedTaxOnOrders;
     }
 
@@ -94,10 +101,11 @@ class OrderTotal extends SourceOrderTotal
      * @param OrderInterface $order
      * @return array
      */
-    private function getAppliedTaxesDetails(OrderInterface $order): array
+    public function getAppliedTaxesDetails(OrderInterface $order): array
     {
         $allAppliedTaxOnOrders = $this->getAllAppliedTaxesOnOrders($order);
         $taxes = [];
+
         foreach ($allAppliedTaxOnOrders as $appliedTaxes) {
             $appliedTaxesArray = [
                 'rate' => $appliedTaxes['percent'] ?? 0,
@@ -109,16 +117,17 @@ class OrderTotal extends SourceOrderTotal
             ];
             $taxes[] = $appliedTaxesArray;
         }
+
         return $taxes;
     }
 
     /**
      * Return information about an applied discount
-     *
+     * Return null if no description available
      * @param OrderInterface $order
      * @return array
      */
-    private function getDiscountDetails(OrderInterface $order): array
+    public function getDiscountDetails(OrderInterface $order): array
     {
         $orderDiscounts = [];
         if (!($order->getDiscountDescription() === null && $order->getDiscountAmount() == 0)) {
@@ -140,11 +149,12 @@ class OrderTotal extends SourceOrderTotal
      * @param OrderInterface $order
      * @return array
      */
-    private function getAppliedShippingTaxesForItems(OrderInterface $order): array
+    public function getAppliedShippingTaxesForItems(OrderInterface $order): array
     {
         $extensionAttributes = $order->getExtensionAttributes();
         $itemAppliedTaxes = $extensionAttributes->getItemAppliedTaxes() ?? [];
         $appliedShippingTaxesForItems = [];
+
         foreach ($itemAppliedTaxes as $appliedTaxForItem) {
             if ($appliedTaxForItem->getType() === "shipping") {
                 foreach ($appliedTaxForItem->getAppliedTaxes() ?? [] as $taxLineItem) {
@@ -157,6 +167,7 @@ class OrderTotal extends SourceOrderTotal
                 }
             }
         }
+        
         return $appliedShippingTaxesForItems;
     }
 
@@ -166,11 +177,12 @@ class OrderTotal extends SourceOrderTotal
      * @param OrderInterface $order
      * @return array
      */
-    private function getAppliedShippingTaxesDetails(
+    public function getAppliedShippingTaxesDetails(
         OrderInterface $order
     ): array {
         $appliedShippingTaxesForItems = $this->getAppliedShippingTaxesForItems($order);
         $shippingTaxes = [];
+
         foreach ($appliedShippingTaxesForItems as $appliedShippingTaxes) {
             $appliedShippingTaxesArray = [
                 'rate' => $appliedShippingTaxes['percent'] ?? 0,
@@ -182,28 +194,31 @@ class OrderTotal extends SourceOrderTotal
             ];
             $shippingTaxes[] = $appliedShippingTaxesArray;
         }
+
         return $shippingTaxes;
     }
 
     /**
      * Return information about an applied discount
-     *
+     * Return null if no description available
      * @param OrderInterface $order
      * @return array
      */
-    private function getShippingDiscountDetails(OrderInterface $order): array
+    public function getShippingDiscountDetails(OrderInterface $order): array
     {
         $shippingDiscounts = [];
+
         if (!($order->getDiscountDescription() === null && $order->getShippingDiscountAmount() == 0)) {
             $shippingDiscounts[] =
                 [
-                    'label' => $order->getDiscountDescription() ?? __('Discount'),
+                    'label' => $order->getDiscountDescription(),
                     'amount' => [
                         'value' => abs($order->getShippingDiscountAmount()),
                         'currency' => $order->getOrderCurrencyCode()
                     ]
                 ];
         }
+
         return $shippingDiscounts;
     }
 }
