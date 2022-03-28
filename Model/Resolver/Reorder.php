@@ -1,7 +1,11 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * ScandiPWA - Progressive Web App for Magento
+ *
+ * Copyright © Scandiweb, Inc. All rights reserved.
+ * See LICENSE for license details.
+ *
+ * @license OSL-3.0 (Open Software License ("OSL") v. 3.0)
  */
 declare(strict_types=1);
 
@@ -30,12 +34,12 @@ class Reorder extends CoreReorder
     /**
      * @var OrderFactory
      */
-    public $orderFactory;
+    public OrderFactory $orderFactory;
 
     /**
      * @var ResolveReorder
      */
-    public $reorder;
+    public ResolveReorder $reorder;
 
     /**
      * @param ResolveReorder $reorder
@@ -55,7 +59,7 @@ class Reorder extends CoreReorder
     }
 
     /**
-     * @inheritDoc
+     * Removed store filtering for reorder functionality
      */
     public function resolve(
         Field $field,
