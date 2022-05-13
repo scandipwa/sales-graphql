@@ -43,4 +43,7 @@
     <preference
         for="ScandiPWA\SalesGraphQl\Api\OrderViewAuthorizationInterface"
         type="ScandiPWA\SalesGraphQl\Model\OrderViewAuthorization" />
+    <preference
+        for="Magento\SalesGraphQl\Model\Resolver\OrderTotal"
+        type="ScandiPWA\SalesGraphQl\Model\Resolver\OrderTotal"/>
 </config>
