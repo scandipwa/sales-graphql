@@ -23,4 +23,7 @@
     <preference
         for="Magento\SalesGraphQl\Model\Resolver\CustomerOrders\Query\OrderFilter"
         type="ScandiPWA\SalesGraphQl\Model\Resolver\CustomerOrders\Query\OrderFilter"/>
+    <preference
+        for="Magento\SalesGraphQl\Model\Resolver\Reorder"
+        type="ScandiPWA\SalesGraphQl\Model\Resolver\Reorder"/>
 </config>
