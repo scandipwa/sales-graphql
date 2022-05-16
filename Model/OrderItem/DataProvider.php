@@ -141,7 +141,7 @@ class DataProvider extends SourceDataProvider
             $associatedOrder = $orderList[$orderItem->getOrderId()];
             $itemOptions = $this->optionsProcessor->getItemOptions($orderItem);
             $this->orderItemList[$orderItem->getItemId()] = [
-                'id' => base64_encode($orderItem->getItemId()),
+                'id' => base64_encode((string)$orderItem->getItemId()),
                 'associatedProduct' => $associatedProduct,
                 'model' => $orderItem,
                 'product_name' => $orderItem->getName(),
@@ -248,7 +248,7 @@ class DataProvider extends SourceDataProvider
             $discounts [] = [
                 'label' => $associatedOrder->getDiscountDescription() ?? __('Discount'),
                 'amount' => [
-                    'value' => abs($orderItem->getDiscountAmount()) ?? 0,
+                    'value' => abs((int)$orderItem->getDiscountAmount()) ?? 0,
                     'currency' => $associatedOrder->getOrderCurrencyCode()
                 ]
             ];
