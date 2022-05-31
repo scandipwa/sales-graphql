@@ -125,7 +125,7 @@ class InvoiceItems extends SourceInvoiceItems
         $orderItem = $this->orderItemProvider->getOrderItemById((int)$invoiceItem->getOrderItemId());
 
         return [
-            'id' => base64_encode($invoiceItem->getEntityId()),
+            'id' => base64_encode((string)$invoiceItem->getEntityId()),
             'product_name' => $invoiceItem->getName(),
             'product_sku' => $invoiceItem->getSku(),
             'product_sale_price' => [
@@ -162,7 +162,7 @@ class InvoiceItems extends SourceInvoiceItems
             $discounts[] = [
                 'label' => $associatedOrder->getDiscountDescription(),
                 'amount' => [
-                    'value' => abs((int)$invoiceItem->getDiscountAmount()) ?? 0,
+                    'value' => abs((int)$invoiceItem->getDiscountAmount()),
                     'currency' => $associatedOrder->getOrderCurrencyCode()
                 ]
             ];
