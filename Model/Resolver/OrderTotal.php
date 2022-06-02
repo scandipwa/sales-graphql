@@ -134,7 +134,7 @@ class OrderTotal extends SourceOrderTotal
             $orderDiscounts[] = [
                 'label' => $order->getDiscountDescription(),
                 'amount' => [
-                    'value' => abs((int)$order->getDiscountAmount()),
+                    'value' => abs((float)$order->getDiscountAmount()),
                     'currency' => $order->getOrderCurrencyCode()
                 ]
             ];
@@ -213,7 +213,7 @@ class OrderTotal extends SourceOrderTotal
                 [
                     'label' => $order->getDiscountDescription(),
                     'amount' => [
-                        'value' => abs((int)$order->getShippingDiscountAmount()),
+                        'value' => abs((float)$order->getShippingDiscountAmount()),
                         'currency' => $order->getOrderCurrencyCode()
                     ]
                 ];

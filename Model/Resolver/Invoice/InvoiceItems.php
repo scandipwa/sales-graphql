@@ -162,7 +162,7 @@ class InvoiceItems extends SourceInvoiceItems
             $discounts[] = [
                 'label' => $associatedOrder->getDiscountDescription(),
                 'amount' => [
-                    'value' => abs((int)$invoiceItem->getDiscountAmount()),
+                    'value' => abs((float)$invoiceItem->getDiscountAmount()),
                     'currency' => $associatedOrder->getOrderCurrencyCode()
                 ]
             ];

@@ -252,7 +252,7 @@ class DataProvider extends SourceDataProvider
             $discounts [] = [
                 'label' => $associatedOrder->getDiscountDescription() ?? __('Discount'),
                 'amount' => [
-                    'value' => abs((int)$orderItem->getDiscountAmount()),
+                    'value' => abs((float)$orderItem->getDiscountAmount()),
                     'currency' => $associatedOrder->getOrderCurrencyCode()
                 ]
             ];
