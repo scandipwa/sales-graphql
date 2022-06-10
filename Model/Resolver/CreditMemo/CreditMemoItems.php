@@ -161,7 +161,7 @@ class CreditMemoItems extends SourceCreditMemoItems
             $discounts[] = [
                 'label' => $associatedOrder->getDiscountDescription() ?? __('Discount'),
                 'amount' => [
-                    'value' => abs($creditmemoItem->getDiscountAmount()) ?? 0,
+                    'value' => abs((float)$creditmemoItem->getDiscountAmount()),
                     'currency' => $associatedOrder->getOrderCurrencyCode()
                 ]
             ];
