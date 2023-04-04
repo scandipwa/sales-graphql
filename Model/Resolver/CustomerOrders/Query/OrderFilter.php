@@ -12,10 +12,10 @@ declare(strict_types=1);
 namespace ScandiPWA\SalesGraphQl\Model\Resolver\CustomerOrders\Query;
 
 use Magento\Framework\Api\FilterBuilder;
+use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Api\Search\FilterGroupBuilder;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Exception\InputException;
-use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Sales\Model\Order\Config;
 use Magento\SalesGraphQl\Model\Resolver\CustomerOrders\Query\OrderFilter as CoreOrderFilter;
 
@@ -91,7 +91,8 @@ class OrderFilter extends CoreOrderFilter
     public function createFilterGroups(
         array $args,
         int $userId,
-        int $storeId
+        int $storeId,
+        array $storeIds
     ): array {
         $filterGroups = [];
 
@@ -103,6 +104,11 @@ class OrderFilter extends CoreOrderFilter
         // Next lines are added to filter order status by visible on front statuses
         $this->filterGroupBuilder->setFilters(
             [$this->filterBuilder->setField('status')->setValue($this->orderConfig->getVisibleOnFrontStatuses())->setConditionType('in')->create()]
+        );
+
+        $storeIds[] = $storeId;
+        $this->filterGroupBuilder->setFilters(
+            [$this->filterBuilder->setField('store_id')->setValue($storeIds)->setConditionType('in')->create()]
         );
         $filterGroups[] = $this->filterGroupBuilder->create();
 
