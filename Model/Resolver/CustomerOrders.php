@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace ScandiPWA\SalesGraphQl\Model\Resolver;
 
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Api\SortOrderBuilder;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\GraphQl\Config\Element\Field;
