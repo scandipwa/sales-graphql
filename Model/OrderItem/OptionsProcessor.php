@@ -13,7 +13,7 @@ namespace ScandiPWA\SalesGraphQl\Model\OrderItem;
 
 use Magento\SalesGraphQl\Model\OrderItem\OptionsProcessor as SourceOptionsProcessor;
 use Magento\Sales\Api\Data\OrderItemInterface;
-use Magento\Downloadable\Api\LinkRepositoryInterface;
+use ScandiPWA\SalesGraphQl\Model\LinkRepository;
 
 /**
  * Process order item options to format for GraphQl output
@@ -46,7 +46,7 @@ class OptionsProcessor extends SourceOptionsProcessor
     protected $linkRepository;
 
     public function __construct(
-        LinkRepositoryInterface $linkRepository
+        LinkRepository $linkRepository
     ) {
         $this->linkRepository = $linkRepository;
     }
@@ -152,12 +152,13 @@ class OptionsProcessor extends SourceOptionsProcessor
      * @param $product
      * @param array $links
      */
-    protected function processDownloadableLinksOptions($product, array $links) {
-        // Get the product downloadable links
-        $productLinks = $this->linkRepository->getList($product->getSku());
-        $linksOutput = [ 'label' => 'Links', 'linkItems' => []];
+    protected function processDownloadableLinksOptions($product, array $links)
+    {
+        $productLinks = $this->linkRepository->getListById((int)$product->getProductId());
 
-        foreach($productLinks as $link) {
+        $linksOutput = ['label' => 'Links', 'linkItems' => []];
+
+        foreach ($productLinks as $link) {
             if (in_array($link->getId(), $links)) {
                 $linksOutput['linkItems'][] = $link->getTitle();
             }
